@@ -1,0 +1,22 @@
+[project]
+name = "soulpet"
+version = "0.1.0"
+description = "SoulPet Project"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch",
+    "transformers",
+    "huggingface-hub",
+    "pandas",
+    "gradio",
+    "openai",  # For future LLM API usage
+    "python-dotenv", # For managing environment variables
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+# Optional: Configure uv specific settings if needed
