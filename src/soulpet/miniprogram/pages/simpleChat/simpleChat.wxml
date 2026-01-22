@@ -1,0 +1,95 @@
+<!--pages/simpleChat/simpleChat.wxml-->
+<view class="chat-container">
+  <!-- 顶部标题栏 -->
+  <view class="chat-header">
+    <view class="header-title">SoulPet</view>
+  </view>
+
+  <!-- 中部消息列表区域 -->
+  <scroll-view
+    class="chat-message-list"
+    scroll-y="{{true}}"
+    scroll-top="{{scrollTop}}"
+    scroll-into-view="{{toView}}"
+    scroll-with-animation="{{true}}"
+    show-scrollbar="{{false}}"
+  >
+    <!-- 消息列表循环渲染 -->
+    <block wx:for="{{messageList}}" wx:key="id">
+      <!-- 用户消息气泡 -->
+      <view class="message-item user-message" wx:if="{{item.role === 'user'}}">
+        <view class="message-bubble user-bubble">{{item.content}}</view>
+      </view>
+
+      <!-- 助手消息气泡 -->
+      <view class="message-item assistant-message" wx:if="{{item.role === 'assistant'}}">
+        <view class="message-bubble assistant-bubble">{{item.content}}</view>
+      </view>
+    </block>
+
+    <!-- 底部占位，防止消息被输入框遮挡 -->
+    <view id="bottom-anchor" style="height: 20px;"></view>
+  </scroll-view>
+
+  <!-- 底部输入区域 -->
+  <view class="chat-footer" style="bottom: {{keyboardHeight}}px;">
+    <!-- 输入框容器 -->
+    <view class="input-container">
+      <!-- 文本输入框 -->
+      <textarea
+        class="chat-input"
+        value="{{inputText}}"
+        placeholder="说点什么吧..."
+        placeholder-class="input-placeholder"
+        adjust-position="{{false}}"
+        cursor-spacing="20"
+        auto-height="{{true}}"
+        maxlength="500"
+        show-confirm-bar="{{false}}"
+        bindinput="onInput"
+        bindfocus="onInputFocus"
+        bindblur="onInputBlur"
+        bindconfirm="sendMessage"
+        confirm-type="send"
+      />
+
+      <!-- 发送按钮 -->
+      <view
+        class="send-button {{isSending ? 'sending' : ''}}"
+        bindtap="sendMessage"
+      >
+        <image
+          wx:if="{{!isSending}}"
+          src="/imgs/send.svg"
+          class="send-icon"
+          mode="widthFix"
+        />
+        <image
+          wx:else
+          src="/imgs/loading.svg"
+          class="send-icon loading-icon"
+          mode="widthFix"
+        />
+      </view>
+    </view>
+
+    <!-- 电子宠物区域（居中显示） -->
+    <view
+      class="pet-area {{isKeyboardUp ? 'keyboard-active' : ''}}"
+      style="bottom: {{petBottomOffset}}px; left: 50%; transform: translateX(-50%);"
+    >
+      <!-- 玻璃质感背景 -->
+      <view class="pet-circle"></view>
+
+      <!-- 宠物占位图标 -->
+      <image
+        class="pet-placeholder"
+        src="/imgs/pet-placeholder.svg"
+        mode="aspectFit"
+      />
+
+      <!-- 可选：宠物状态文字 -->
+      <text class="pet-status">休息中</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,234 @@
+/* pages/simpleChat/simpleChat.wxss */
+
+/* ==================== 页面容器 ==================== */
+.chat-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #f8f9ff 0%, #ffffff 100%);
+  position: relative;
+}
+
+/* ==================== 顶部标题栏 ==================== */
+.chat-header {
+  width: 100%;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-bottom: 1rpx solid #f0f0f0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #333333;
+  letter-spacing: 2rpx;
+}
+
+/* ==================== 消息列表区域 ==================== */
+.chat-message-list {
+  flex: 1;
+  width: 100%;
+  padding: 20rpx 24rpx;
+  box-sizing: border-box;
+  margin-top: 88rpx; /* 避开顶部标题栏 */
+  margin-bottom: 120rpx; /* 避开底部输入框 */
+}
+
+/* 消息项容器 */
+.message-item {
+  display: flex;
+  margin-bottom: 24rpx;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 淡入动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 用户消息 - 右对齐 */
+.user-message {
+  justify-content: flex-end;
+}
+
+/* 助手消息 - 左对齐 */
+.assistant-message {
+  justify-content: flex-start;
+}
+
+/* 消息气泡 */
+.message-bubble {
+  max-width: 70%;
+  padding: 24rpx 32rpx;
+  border-radius: 32rpx;
+  font-size: 30rpx;
+  line-height: 1.6;
+  word-wrap: break-word;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+/* 用户消息气泡样式 */
+.user-bubble {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  border-bottom-right-radius: 8rpx; /* 增加辨识度 */
+}
+
+/* 助手消息气泡样式 */
+.assistant-bubble {
+  background: #ffffff;
+  color: #333333;
+  border-bottom-left-radius: 8rpx; /* 增加辨识度 */
+  border: 1rpx solid #f0f0f0;
+}
+
+/* ==================== 底部输入区域 ==================== */
+.chat-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 24rpx;
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom)); /* 适配 iPhone 底部安全区 */
+  background-color: #ffffff;
+  border-top: 1rpx solid #f0f0f0;
+  z-index: 90;
+  transition: bottom 0.3s ease-out; /* 键盘弹起时的平滑过渡 */
+}
+
+/* 输入框容器 */
+.input-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 16rpx;
+}
+
+/* 文本输入框 */
+.chat-input {
+  flex: 1;
+  min-height: 72rpx;
+  max-height: 200rpx;
+  padding: 20rpx 24rpx;
+  background-color: #f5f6fa;
+  border-radius: 36rpx;
+  font-size: 30rpx;
+  line-height: 1.5;
+  color: #333333;
+  border: none;
+  outline: none;
+}
+
+.input-placeholder {
+  color: #999999;
+}
+
+/* ==================== 发送按钮 ==================== */
+.send-button {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.send-button.sending {
+  opacity: 0.6;
+}
+
+.send-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.loading-icon {
+  animation: rotate 1s linear infinite;
+}
+
+/* 旋转动画 */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==================== 电子宠物区域 ==================== */
+.pet-area {
+  position: fixed;
+  width: 240rpx; /* 约 120px */
+  height: 240rpx;
+  z-index: 90; /* 高于消息列表，但低于输入框 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: bottom 0.3s ease-out; /* 键盘跟随动画 */
+}
+
+/* 宠物圆形背景 - 玻璃质感 */
+.pet-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20rpx); /* 毛玻璃效果 */
+  -webkit-backdrop-filter: blur(20rpx);
+  box-shadow:
+    0 8rpx 32rpx rgba(0, 0, 0, 0.08),
+    inset 0 2rpx 8rpx rgba(255, 255, 255, 0.8),
+    inset 0 -2rpx 8rpx rgba(0, 0, 0, 0.05);
+  border: 1rpx solid rgba(255, 255, 255, 0.4);
+}
+
+/* 宠物占位图标 */
+.pet-placeholder {
+  width: 160rpx;
+  height: 160rpx;
+  z-index: 1;
+}
+
+/* 宠物状态文字 */
+.pet-status {
+  position: absolute;
+  bottom: -40rpx;
+  font-size: 24rpx;
+  color: #999999;
+  white-space: nowrap;
+}
+
+/* 键盘弹起时的宠物位置调整 */
+.keyboard-active {
+  /* 使用 JS 动态控制位置，这里不再使用固定值 */
+}
+
+/* ==================== 适配 iPhone 刘海屏 ==================== */
+/* 顶部安全区适配 */
+page {
+  padding-top: env(safe-area-inset-top);
+}
