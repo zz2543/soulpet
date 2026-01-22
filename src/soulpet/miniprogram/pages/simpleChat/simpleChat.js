@@ -179,7 +179,9 @@ onInputBlur(_e) {
       
       // 失败：显示错误提示（使用配置的错误消息）
       const { errorMessage } = this.data;
-      this.addMessage('assistant', errorMessage);
+      // 将错误信息添加到回复中，方便调试排查
+      const detailedError = error.message || (typeof error === 'object' ? JSON.stringify(error) : String(error));
+      this.addMessage('assistant', `${errorMessage}\n\n[调试错误信息]: ${detailedError}`);
 
       // 可选：显示 toast 提示
       wx.showToast({

@@ -2,7 +2,7 @@
   "miniprogramRoot": "miniprogram/",
   "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": true,
     "postcss": true,
@@ -72,6 +72,6 @@
     "include": []
   },
   "appid": "wx383de6e8087635ff",
-  "libVersion": "3.8.1",
+  "libVersion": "3.14.0",
   "simulatorPluginLibVersion": {}
 }
